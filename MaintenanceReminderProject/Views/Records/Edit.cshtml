@@ -1,0 +1,88 @@
+@model MaintenanceReminderProject.Models.Record
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Record</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RecordID" />
+
+            <script>function ShowOtherField() {
+                    if (document.getElementById("categories").value == "Other") {
+                        document.getElementById("otherField").readOnly = false;
+                        document.getElementById("otherField").value = "";
+                    }
+
+
+                }</script>
+            <div class="form-group">
+                <label asp-for="ItemCategory" class="control-label">Item Category</label>
+                <select asp-for="ItemCategory" class="form-control" id="categories" onchange="ShowOtherField()">
+                    <option value="Home">Home</option>
+                    <option value="Vehicle">Vehicle</option>
+                    <option value="Other">Other</option>
+                </select>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="OtherItemCategory" class="control-label">Other Item Category</label>
+                <input asp-for="OtherItemCategory" class="form-control" id="otherField" value="N/A" readonly />
+                <span asp-validation-for="OtherItemCategory" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ItemName" class="control-label">Item Name</label>
+                <input asp-for="ItemName" class="form-control" />
+                <span asp-validation-for="ItemName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DateLastMaintained" class="control-label">Date Last Maintained</label>
+                <input asp-for="DateLastMaintained" class="form-control" type="date"/>
+                <span asp-validation-for="DateLastMaintained" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Time" class="control-label">Time Until Next Maintenance</label>
+                <input asp-for="Time" class="form-control" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Time" class="control-label">Time Until Next Maintenance</label>
+                <input asp-for="Time" class="form-control" style="width:40%;display:inline;" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+
+                <select asp-for="TimeUnit" class="form-control" style="width:40%;display:inline;">
+                    <option value="Years">Years</option>
+                    <option value="Months">Months</option>
+                    <option value="Weeks">Weeks</option>
+                    <option value="Days">Days</option>
+                </select>
+                <span asp-validation-for="TimeUnit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfNextMaintenance" class="control-label">Date of Next Maintenance</label>
+                <input asp-for="DateOfNextMaintenance" class="form-control" type="date"/>
+                <span asp-validation-for="DateOfNextMaintenance" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

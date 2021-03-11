@@ -1,0 +1,65 @@
+@model MaintenanceReminderProject.Models.Record
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    
+    <hr />
+    <dl class="row">
+
+        
+        @if (Model.ItemCategory.Equals("Other"))
+        {
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ItemCategory)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.OtherItemCategory)
+        </dd>
+        }
+        else
+        {
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ItemCategory)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ItemCategory)
+        </dd>
+        }
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ItemName)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ItemName)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.DateLastMaintained)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.DateLastMaintained)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Time)
+            @Html.DisplayFor(model => model.TimeUnit)
+        </dd>
+        
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.DateOfNextMaintenance)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.DateOfNextMaintenance)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.RecordID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

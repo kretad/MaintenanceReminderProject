@@ -1,0 +1,65 @@
+@model IEnumerable<MaintenanceReminderProject.Models.Record>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Records</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Item Category</th>
+            <th>Item Name</th>
+            <th>Date Last Maintained</th>
+            <th>Time Until Next Maintenance</th>
+            <th>Date Of Next Maintenance</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        
+@foreach (var record in Model) {
+
+        <tr>
+          @if (record.ItemCategory.Equals("Other"))
+          {
+            <td>
+                @Html.DisplayFor(modelRecord => record.OtherItemCategory)
+            </td>
+          }
+          else
+          {
+            <td>
+                @Html.DisplayFor(modelRecord => record.ItemCategory)
+            </td>
+          }
+
+            <td>
+                @Html.DisplayFor(modelRecord => record.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelRecord => record.DateLastMaintained)
+            </td>
+            <td>
+                @Html.DisplayFor(modelRecord => record.Time)
+                @Html.DisplayFor(modelRecord => record.TimeUnit)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelRecord => record.DateOfNextMaintenance)
+            </td>
+
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@record.RecordID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@record.RecordID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@record.RecordID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

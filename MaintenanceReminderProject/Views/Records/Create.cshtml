@@ -1,0 +1,107 @@
+@model MaintenanceReminderProject.Models.Record
+
+@{ ViewData["Title"] = "Create"; }
+
+<h1>Create</h1>
+
+<h4>Record</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <script>function ShowOtherField() {
+                    if (document.getElementById("categories").value == "Other") {
+                        document.getElementById("otherField").readOnly = false;
+                        document.getElementById("otherField").value = "";
+                    }
+                }</script>
+
+            <script>function CalcNextMaintDate() {
+
+                    var dateLastMaint = document.getElementById("lastMaintained").value;
+                    var time = document.getElementById("time").value;
+                    var timeUnit = document.getElementById("timeUnit").value;
+
+                    if (dateLastMaint != null && time != null && timeUnit != null) {
+                        switch (timeUnit) {
+                            case "Years":
+                                document.getElementById("nextMaintenance").value.setDate(dateLastMaint.getDate());
+                                document.getElementById("nextMaintenance").value.setMonth(dateLastMaint.getMonth());
+                                document.getElementById("nextMaintenance").value.setFullYear(dateLastMaint.getFullYear() + time);
+                                break;
+                            case "Months":
+                                document.getElementById("nextMaintenance").value.setDate(dateLastMaint.getDate());
+                                document.getElementById("nextMaintenance").value.setMonth(dateLastMaint.getMonth() + time);
+                                document.getElementById("nextMaintenance").value.setFullYear(dateLastMaint.getFullYear());
+                                break;
+                            case "Days":
+                                document.getElementById("nextMaintenance").value.setDate(dateLastMaint.getDate() + time);
+                                document.getElementById("nextMaintenance").value.setMonth(dateLastMaint.getMonth());
+                                document.getElementById("nextMaintenance").value.setFullYear(dateLastMaint.getFullYear());
+                        }
+                    }
+                }</script>
+
+            <div class="form-group">
+                <label asp-for="ItemCategory" class="control-label">Item Category</label>
+                <select asp-for="ItemCategory" class="form-control" id="categories" onchange="ShowOtherField()">
+                    <option value="Home">Home</option>
+                    <option value="Vehicle">Vehicle</option>
+                    <option value="Other">Other</option>
+                </select>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="OtherItemCategory" class="control-label">Other Item Category</label>
+                <input asp-for="OtherItemCategory" class="form-control" id="otherField" value="N/A" readonly />
+                <span asp-validation-for="OtherItemCategory" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ItemName" class="control-label">Item Name (ex. filter, oil, etc.)</label>
+                <input asp-for="ItemName" class="form-control" />
+                <span asp-validation-for="ItemName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DateLastMaintained" class="control-label">Date Last Maintained</label>
+                <input asp-for="DateLastMaintained" class="form-control" type="date" id="lastMaintained"/>
+                <span asp-validation-for="DateLastMaintained" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Time" class="control-label">Time Until Next Maintenance</label>
+                <input asp-for="Time" class="form-control" style="width:40%;display:inline;" id="time"/>
+                <span asp-validation-for="Time" class="text-danger"></span>
+
+                <select asp-for="TimeUnit" class="form-control" style="width:40%;display:inline;" id="timeUnit" onchange="CalcNextMaintDate">
+                    <option value=""></option>
+                    <option value="Years">Years</option>
+                    <option value="Months">Months</option>
+                    <option value="Weeks">Weeks</option>
+                    <option value="Days">Days</option>
+                </select>
+                <span asp-validation-for="TimeUnit" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DateOfNextMaintenance" class="control-label">Date of Next Maintenance</label>
+                <input asp-for="DateOfNextMaintenance" class="form-control" type="date" id="nextMaintenance"/>
+                <span asp-validation-for="DateOfNextMaintenance" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
