@@ -11,25 +11,22 @@
     <hr />
     <dl class="row">
 
-        
+
         @if (Model.ItemCategory.Equals("Other"))
         {
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.ItemCategory)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.OtherItemCategory)
-        </dd>
-        }
-        else
-        {
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.ItemCategory)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.ItemCategory)
-        </dd>
-        }
+
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.OtherItemCategory)
+    </dd> }
+                else
+                {
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.ItemCategory)
+                    </dt>
+                                    <dd class="col-sm-9">
+                                        @Html.DisplayFor(model => model.ItemCategory)
+                                    </dd>
+                                }
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.ItemName)
         </dt>
@@ -49,7 +46,27 @@
             @Html.DisplayFor(model => model.Time)
             @Html.DisplayFor(model => model.TimeUnit)
         </dd>
-        
+
+        @switch (Model.TimeUnit)
+        {
+            case "Years":
+            case "Year":
+                Model.DateOfNextMaintenance = Model.DateLastMaintained.AddYears(Model.Time);
+                break;
+            case "Months":
+            case "Month":
+                Model.DateOfNextMaintenance = Model.DateLastMaintained.AddMonths(Model.Time);
+                break;
+            case "Weeks":
+            case "Week":
+                Model.DateOfNextMaintenance = Model.DateLastMaintained.AddDays(Model.Time * 7);
+                break;
+            default:
+                Model.DateOfNextMaintenance = Model.DateLastMaintained.AddDays(Model.Time);
+                break;
+
+        }
+
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.DateOfNextMaintenance)
         </dt>
