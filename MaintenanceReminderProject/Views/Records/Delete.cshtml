@@ -23,6 +23,25 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ItemCategory)
         </dd>
+        @switch (Model.TimeUnit)
+        {
+            case "Years":
+            case "Year":
+                Model.DateOfNextMaintenance = Model.DateLastMaintained.AddYears(Model.Time);
+                break;
+            case "Months":
+            case "Month":
+                Model.DateOfNextMaintenance = Model.DateLastMaintained.AddMonths(Model.Time);
+                break;
+            case "Weeks":
+            case "Week":
+                Model.DateOfNextMaintenance = Model.DateLastMaintained.AddDays(Model.Time * 7);
+                break;
+            default:
+                Model.DateOfNextMaintenance = Model.DateLastMaintained.AddDays(Model.Time);
+                break;
+
+        }
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DateLastMaintained)
         </dt>
@@ -47,7 +66,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.DateLastMaintained)
         </dd>
-        
+
     </dl>
     
     <form asp-action="Delete">

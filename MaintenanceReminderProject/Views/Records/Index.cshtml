@@ -25,18 +25,16 @@
 @foreach (var record in Model) {
 
         <tr>
-          @if (record.ItemCategory.Equals("Other"))
-          {
-            <td>
-                @Html.DisplayFor(modelRecord => record.OtherItemCategory)
-            </td>
-          }
-          else
-          {
-            <td>
-                @Html.DisplayFor(modelRecord => record.ItemCategory)
-            </td>
-          }
+            @if (record.ItemCategory.Equals("Other"))
+            {
+        <td>
+            @Html.DisplayFor(modelRecord => record.OtherItemCategory)
+        </td> }
+                        else
+                        {
+        <td>
+            @Html.DisplayFor(modelRecord => record.ItemCategory)
+        </td>}
 
             <td>
                 @Html.DisplayFor(modelRecord => record.ItemName)
@@ -48,7 +46,27 @@
                 @Html.DisplayFor(modelRecord => record.Time)
                 @Html.DisplayFor(modelRecord => record.TimeUnit)
             </td>
-            
+
+            @switch(record.TimeUnit)
+            {
+                case "Years":
+                case "Year":
+                    record.DateOfNextMaintenance = record.DateLastMaintained.AddYears(record.Time);
+                    break;
+                case "Months":
+                case "Month":
+                    record.DateOfNextMaintenance = record.DateLastMaintained.AddMonths(record.Time);
+                    break;
+                case "Weeks":
+                case "Week":
+                    record.DateOfNextMaintenance = record.DateLastMaintained.AddDays(record.Time*7);
+                    break;
+                default:
+                    record.DateOfNextMaintenance = record.DateLastMaintained.AddDays(record.Time);
+                    break;
+
+            }
+
             <td>
                 @Html.DisplayFor(modelRecord => record.DateOfNextMaintenance)
             </td>
