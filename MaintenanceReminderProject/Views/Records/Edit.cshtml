@@ -14,30 +14,70 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="RecordID" />
 
-            <script>function HideOtherField() {
-                    if (document.getElementById("categories").value != "Other") {
+            <script>function EnableDisableOtherField() {
+                    if (document.getElementById("categories").value == "Other") {
+                        document.getElementById("otherField").readOnly = false;
+                        document.getElementById("otherField").value = "";
+                    }
+                    else {
+
                         document.getElementById("otherField").readOnly = true;
                         document.getElementById("otherField").value = "N/A";
                     }
                 }</script>
 
+            <script>function SetSingularPlural() {
+                    if (document.getElementById("time").value == 1) {
+                       
+                        document.getElementById("years").value = "Year";
+                        document.getElementById("months").value = "Month";
+                        document.getElementById("weeks").value = "Week";
+                        document.getElementById("days").value = "Day";
+                        document.getElementById("years").innerHTML = "Year";
+                        document.getElementById("months").innerHTML = "Month";
+                        document.getElementById("weeks").innerHTML = "Week";
+                        document.getElementById("days").innerHTML = "Day";
+                    }
+                    else {
+                        
+                        document.getElementById("years").value = "Years";
+                        document.getElementById("months").value = "Months";
+                        document.getElementById("weeks").value = "Weeks";
+                        document.getElementById("days").value = "Days";
+                        document.getElementById("years").innerHTML = "Years";
+                        document.getElementById("months").innerHTML = "Months";
+                        document.getElementById("weeks").innerHTML = "Weeks";
+                        document.getElementById("days").innerHTML = "Days";
+                    }
+
+                }</script>
+
             <div class="form-group">
                 <label asp-for="ItemCategory" class="control-label">Item Category</label>
-                <select asp-for="ItemCategory" class="form-control" id="categories" onchange="HideOtherField()">
+                <select asp-for="ItemCategory" class="form-control" id="categories" onchange="EnableDisableOtherField()">
                     <option value="Home">Home</option>
                     <option value="Vehicle">Vehicle</option>
                     <option value="Other">Other</option>
                 </select>
 
             </div>
-            <div class="form-group">
-                <label asp-for="OtherItemCategory" class="control-label">Other Item Category</label>
-                <input asp-for="OtherItemCategory" class="form-control" id="otherField" />
-                <span asp-validation-for="OtherItemCategory" class="text-danger"></span>
-            </div>
+            @if (Model.ItemCategory.Equals("Other"))
+            {
+        <div class="form-group">
+            <label asp-for="OtherItemCategory" class="control-label">Other Item Category</label>
+            <input asp-for="OtherItemCategory" class="form-control" id="otherField" />
+            <span asp-validation-for="OtherItemCategory" class="text-danger"></span>
+        </div> }
+    else
+    {
+        <div class="form-group">
+            <label asp-for="OtherItemCategory" class="control-label">Other Item Category</label>
+            <input asp-for="OtherItemCategory" class="form-control" id="otherField" value="N/A" readonly />
+            <span asp-validation-for="OtherItemCategory" class="text-danger"></span>
+        </div>}
 
             <div class="form-group">
-                <label asp-for="ItemName" class="control-label">Item Name</label>
+                <label asp-for="ItemName" class="control-label">Item Name (ex. replace filter, oil change, etc.)</label>
                 <input asp-for="ItemName" class="form-control" />
                 <span asp-validation-for="ItemName" class="text-danger"></span>
             </div>
@@ -50,21 +90,35 @@
 
             <div class="form-group">
                 <label asp-for="Time" class="control-label">Time Until Next Maintenance</label>
-                <input asp-for="Time" class="form-control" style="width:40%;display:inline;" />
+                <input asp-for="Time" class="form-control" style="width:40%;display:inline;" id="time" onchange="SetSingularPlural()" />
                 <span asp-validation-for="Time" class="text-danger"></span>
-
-                <select asp-for="TimeUnit" class="form-control" style="width:40%;display:inline;">
-                    <option value="Years">Year(s)</option>
-                    <option value="Months">Month(s)</option>
-                    <option value="Weeks">Week(s)</option>
-                    <option value="Days">Day(s)</option>
-                </select>
+               
+                <select asp-for="TimeUnit" class="form-control" style="width:40%;display:inline;" id="timeUnit" onchange="CalcNextMaintDate()">
+                    <option value=""></option>
+                    @if (Model.Time > 1)
+                    {
+                <option value="Years" id="years">Years</option>
+                <option value="Months" id="months">Months</option>
+                <option value="Weeks" id="weeks">Weeks</option>
+                <option value="Days" id="days">Days</option>
+                    } 
+                    else
+                    {
+            
+                <option value="Year" id="years">Year</option>
+                <option value="Month" id="months">Month</option>
+                <option value="Week" id="weeks">Week</option>
+                <option value="Day" id="days">Day</option>
+                }
+            </select>
+                    
                 <span asp-validation-for="TimeUnit" class="text-danger"></span>
+
             </div>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
         </form>
     </div>
 </div>
