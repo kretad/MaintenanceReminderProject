@@ -47,6 +47,7 @@
             @Html.DisplayFor(model => model.TimeUnit)
         </dd>
 
+        
         @switch (Model.TimeUnit)
         {
             case "Years":
@@ -66,6 +67,7 @@
                 break;
 
         }
+        
 
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.DateOfNextMaintenance)

@@ -12,13 +12,13 @@ namespace MaintenanceReminderProject.Data
 
             var records = new Record[]
             {
-            new Record{ItemName="TestItem1", ItemCategory="Home", OtherItemCategory="",DateLastMaintained=DateTime.Parse("2021-09-01"),Time=1,TimeUnit="Years", DateOfNextMaintenance=DateTime.Parse("2022-09-01")},
-            new Record{ItemName="TestItem2", ItemCategory="Vehicle", OtherItemCategory="",DateLastMaintained=DateTime.Parse("2021-09-01"),Time=1,TimeUnit="Years", DateOfNextMaintenance=DateTime.Parse("2022-09-01")},
-            new Record{ItemName="TestItem3", ItemCategory="Other", OtherItemCategory="Test Other Item Category",DateLastMaintained=DateTime.Parse("2021-09-01"),Time=1,TimeUnit="Years", DateOfNextMaintenance=DateTime.Parse("2022-09-01")},
-            new Record{ItemName="TestItem4", ItemCategory="Home", OtherItemCategory="",DateLastMaintained=DateTime.Parse("2021-09-01"),Time=1,TimeUnit="Years", DateOfNextMaintenance=DateTime.Parse("2022-09-01")},
-            new Record{ItemName="TestItem5", ItemCategory="Vehicle", OtherItemCategory="",DateLastMaintained=DateTime.Parse("2021-09-01"),Time=1,TimeUnit="Years", DateOfNextMaintenance=DateTime.Parse("2022-09-01")},
-            new Record{ItemName="TestItem6", ItemCategory="Other", OtherItemCategory="Test Other Item Category",DateLastMaintained=DateTime.Parse("2021-09-01"),Time=1,TimeUnit="Years", DateOfNextMaintenance=DateTime.Parse("2022-09-01")},
-            new Record{ItemName="TestItem7", ItemCategory="Home", OtherItemCategory="",DateLastMaintained=DateTime.Parse("2021-09-01"),Time=1,TimeUnit="Years", DateOfNextMaintenance=DateTime.Parse("2022-09-01")} };
+            new Record{ItemName="Replace AC Filter", ItemCategory="Home", OtherItemCategory="",DateLastMaintained=DateTime.Now,Time=1,TimeUnit="Year", DateOfNextMaintenance=DateTime.Now.AddYears(1)},
+            new Record{ItemName="Oil Change", ItemCategory="Vehicle", OtherItemCategory="",DateLastMaintained=DateTime.Now,Time=1,TimeUnit="Year", DateOfNextMaintenance=DateTime.Now.AddYears(1)},
+            new Record{ItemName="Mow Lawn", ItemCategory="Other", OtherItemCategory="Garden",DateLastMaintained=DateTime.Now,Time=1,TimeUnit="Year", DateOfNextMaintenance=DateTime.Now.AddYears(1)},
+            new Record{ItemName="Replace Water Heater", ItemCategory="Home", OtherItemCategory="",DateLastMaintained=DateTime.Now,Time=1,TimeUnit="Year", DateOfNextMaintenance=DateTime.Now.AddYears(1)},
+            new Record{ItemName="Rotate Tires", ItemCategory="Vehicle", OtherItemCategory="",DateLastMaintained=DateTime.Now,Time=1,TimeUnit="Year", DateOfNextMaintenance=DateTime.Now.AddYears(1)},
+            new Record{ItemName="Replace Plant Food", ItemCategory="Other", OtherItemCategory="Garden",DateLastMaintained=DateTime.Now,Time=1,TimeUnit="Year", DateOfNextMaintenance=DateTime.Now.AddYears(1)},
+            new Record{ItemName="Replace Refrigerator Filter", ItemCategory="Home", OtherItemCategory="",DateLastMaintained=DateTime.Now,Time=1,TimeUnit="Year", DateOfNextMaintenance=DateTime.Now.AddYears(1)} };
 
             foreach (Record e in records)
             {
